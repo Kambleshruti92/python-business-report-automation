@@ -1,0 +1,18 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Pytest cache
+.pytest_cache/
+
+# Generated reports
+reports/*.xlsx
+
+# Environment variables
+.env
+
+# VS Code
+.vscode/
