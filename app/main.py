@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from app.pdf_parser import extract_text_from_pdf
 
 import pandas as pd
 
@@ -215,4 +216,26 @@ def generate_report(
             detail=(
                 f"Report generation failed: {str(error)}"
             )
+        )
+
+
+@app.get("/parse-pdf")
+def parse_pdf():
+
+    pdf_file = "data/pdfs/business_report.pdf"
+
+    try:
+
+        text = extract_text_from_pdf(pdf_file)
+
+        return {
+            "file": pdf_file,
+            "text": text
+        }
+
+    except Exception as error:
+
+        raise HTTPException(
+            status_code=500,
+            detail=f"PDF parsing failed: {str(error)}"
         )

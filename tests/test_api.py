@@ -137,3 +137,18 @@ def test_generate_report():
         report_response.headers["content-type"]
         == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
+
+def test_parse_pdf():
+
+    response = client.get("/parse-pdf")
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert data["file"] == "data/pdfs/business_report.pdf"
+
+    assert "Business Performance Report" in data["text"]
+    assert "Amit" in data["text"]
+    assert "Neha" in data["text"]
+    assert "90%" in data["text"]
